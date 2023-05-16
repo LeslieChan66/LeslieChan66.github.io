@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>kodi+alist打造家庭级影院 - Leslie&#39;s Blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Kodi 是一款功能强大的多媒体影音播放器 以更优雅的方式来管理你的影音资源 解码能力强 丰富强大的插件支持 炫酷的皮肤主题可以打造属于你自己家庭影院体验 多平台运行支持  本文主要介绍kodi使用，Alist配置请参考使用AList+rclone将你的阿里云盘挂载到本地中Alist部分 kodi安装 kodi官网 👉 点击下载  选择对应的平台下载安装即可 配置安装成功后，打开kodi，界面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kodi+alist打造家庭级影院">
+<meta property="og:url" content="http://lesliechan66.github.io/kodi.html">
+<meta property="og:site_name" content="Leslie&#39;s Blog">
+<meta property="og:description" content="Kodi 是一款功能强大的多媒体影音播放器 以更优雅的方式来管理你的影音资源 解码能力强 丰富强大的插件支持 炫酷的皮肤主题可以打造属于你自己家庭影院体验 多平台运行支持  本文主要介绍kodi使用，Alist配置请参考使用AList+rclone将你的阿里云盘挂载到本地中Alist部分 kodi安装 kodi官网 👉 点击下载  选择对应的平台下载安装即可 配置安装成功后，打开kodi，界面">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516232432218.png">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516234525858.png">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516235009147.png">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230517001208280.png">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230517002224743.png">
+<meta property="article:published_time" content="2023-05-16T14:58:33.000Z">
+<meta property="article:modified_time" content="2023-05-16T16:53:40.554Z">
+<meta property="article:author" content="Leslie Chan">
+<meta property="article:tag" content="kodi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516232432218.png">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1684256033690">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1684256033691">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1684256033691">
+        
+    
+
+    
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+
+
+    <script async src="/js/app.js?v=1684256033691"></script>
+    
+     
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1RT2YB4M78"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1RT2YB4M78');
+</script>
+<meta name="google-site-verification" content="APE-WxnAXBrcvz1_HvXagKU4XgrbPL3FwlrifBtASaI" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" 
+            style="background-image: url(https://i.dawnlab.me/b5a7e61560facdd5b8aa9683fce147d7.png)"
+        ></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Leslie Chan" class="mdui-btn mdui-btn-icon"><img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/1711684231126_.pic.jpg" alt="Leslie Chan"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Leslie Chan">
+            <img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/1711684231126_.pic.jpg" alt="Leslie Chan" alt="Leslie Chan">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>2</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archives/index.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+        
+            
+            <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=site:lesliechan66.github.io" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+        
+            
+            <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/LeslieChan66/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/others/">others</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/alist/" style="font-size: 10px;">alist</a> <a href="/tags/kodi/" style="font-size: 10px;">kodi</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(2);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+        
+            
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/kodi.html">kodi+alist打造家庭级影院</a>
+          </li>
+        
+          <li>
+            <a href="/alist.html">使用AList+rclone将你的阿里云盘挂载到本地</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+        
+            
+    </aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 Leslie Chan
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+    <div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover absolute" style="padding-top: 62.5%;"> 
+            <img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/iShot_2023-05-16_23.05.46.png" alt="kodi+alist打造家庭级影院" loading="lazy">
+            <h1>kodi+alist打造家庭级影院</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2023年05月16日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/others/">others</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <blockquote>
+<p>Kodi 是一款功能强大的多媒体影音播放器</p>
+<p>以更优雅的方式来管理你的影音资源</p>
+<p>解码能力强</p>
+<p>丰富强大的插件支持</p>
+<p>炫酷的皮肤主题可以打造属于你自己家庭影院体验</p>
+<p>多平台运行支持</p>
+</blockquote>
+<p>本文主要介绍kodi使用，Alist配置请参考<a href="https://lesliechan66.github.io/alist.html">使用AList+rclone将你的阿里云盘挂载到本地</a>中Alist部分</p>
+<h2 id="kodi"><a href="#kodi" class="headerlink" title="kodi"></a>kodi</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><blockquote>
+<p>kodi官网 👉 <a target="_blank" rel="noopener" href="https://kodi.tv/download/">点击下载</a></p>
+</blockquote>
+<p>选择对应的平台下载安装即可</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装成功后，打开kodi，界面应该如下图所示，需进行一系列的配置以方便我们操作</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516232432218.png" alt="image-20230516232432218" data-caption="image-20230516232432218" loading="lazy"></p>
+<h4 id="皮肤设置"><a href="#皮肤设置" class="headerlink" title="皮肤设置"></a>皮肤设置</h4><p>打开<em><strong>Settings-&gt;Interface-&gt;Skin</strong></em>选择skin，然后选择GET MORE，下载你喜欢的皮肤，我使用的皮肤是**Embuary (Matrix) **</p>
+<blockquote>
+<p>Tips: 每次切换皮肤时，需先将语言设置为英文，否则会出现乱码</p>
+</blockquote>
+<h4 id="语言设置"><a href="#语言设置" class="headerlink" title="语言设置"></a>语言设置</h4><p>打开<em><strong>Settings-&gt;Interface-&gt;Skin</strong></em>将fonts设置为Arial based，然后进入<em><strong>Settings-&gt;Interface-&gt;Regional</strong></em>将language设置为Chinese Simpled</p>
+<h4 id="添加alist源"><a href="#添加alist源" class="headerlink" title="添加alist源"></a>添加alist源</h4><p>在添加源时选择浏览</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516234525858.png" alt="image-20230516234525858" data-caption="image-20230516234525858" loading="lazy"></p>
+<p>然后添加网络位置，协议选择WebDAV(http)，服务器地址你本机的ip地址，远程路径填&#x2F;dav，然后输入alist的管理员账号及密码</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516235009147.png" alt="image-20230516235009147" data-caption="image-20230516235009147" loading="lazy"></p>
+<p>然后将你存放电视剧和电影的文件分别添加到源。添加后系统会让你设置内容，暂时先不管。</p>
+<h3 id="刮削"><a href="#刮削" class="headerlink" title="刮削"></a>刮削</h3><p>添加源后我们需要刮削影片和剧集的信息才能展示好看的海报墙。</p>
+<p>因为众所周知的原因导致kodi官方提供的刮削器插件在国内并不能使用。我们可以使用第三方库的刮削器来解决该问题，<a target="_blank" rel="noopener" href="https://kodi8.github.io/timefly">点此下载第三方库</a>，下载完成后，进入插件，选择从zip文件安装，选择刚刚下载的第三方库。然后我们再选择从库安装</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230517001208280.png" alt="image-20230517001208280" data-caption="image-20230517001208280" loading="lazy"></p>
+<p>选择timefly库，进入信息提供者分别下载剧集信息和电影信息的刮削器，推荐下载The Movie Database(免hosts)。</p>
+<p>然后选择刚刚添加的源，长按或右键呼出菜单，选择设置内容，将信息提供者设置为刚才安装的刮削器插件。</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230517002224743.png" alt="image-20230517002224743" data-caption="image-20230517002224743" loading="lazy"></p>
+<blockquote>
+<p>Tips: 电影和剧集需按照一定规则的命名才能保证刮削的信息正确，</p>
+<p>具体可参考如下命名：</p>
+<p>TV Shows</p>
+<p>​		｜——电视剧1</p>
+<p>​					|——Season 01</p>
+<p>​									｜——电视剧1_S01E01</p>
+<p>​									｜——电视剧1_S01E02</p>
+<p>​					|——Season 02</p>
+<p>​									｜——电视剧1_S02E01</p>
+<p>​		｜——电视剧2</p>
+<p>​					|——Season 01</p>
+<p>​									｜——电视剧2_S01E01</p>
+<p>这里推荐一个阿里云盘批量改名的油猴插件<a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/459303-%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98-%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8D-%E5%89%A7%E9%9B%86%E5%88%AE%E5%89%8A">阿里云盘-批量修改文件名-剧集刮削</a></p>
+</blockquote>
+
+    
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Leslie Chan<br>
+        <strong>本文链接：</strong><a href="http://lesliechan66.github.io/kodi.html" title="http:&#x2F;&#x2F;lesliechan66.github.io&#x2F;kodi.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;lesliechan66.github.io&#x2F;kodi.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/kodi/" rel="tag">kodi</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1684256033685"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="vcomment"></div>
+<script>
+new Valine({
+  el: '#vcomment' ,
+  appId: 'X6fWfxUVCo49mfNAIDCb8sef-9Nh9j0Va',
+  appKey: 'eM4qghZk5NSAgDu5lVFC5kf5'
+});
+</script>
+
+      </div>
+  
+</div>
+</div>
+        <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#kodi"><span class="toc-number">1.</span> <span class="toc-text">kodi</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9A%AE%E8%82%A4%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.1.</span> <span class="toc-text">皮肤设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">语言设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0alist%E6%BA%90"><span class="toc-number">1.2.3.</span> <span class="toc-text">添加alist源</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AE%E5%89%8A"><span class="toc-number">1.3.</span> <span class="toc-text">刮削</span></a></li></ol></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="搜索"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

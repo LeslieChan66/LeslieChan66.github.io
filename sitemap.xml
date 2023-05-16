@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lesliechan66.github.io/kodi.html</loc>
+    
+    <lastmod>2023-05-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://lesliechan66.github.io/alist.html</loc>
     
     <lastmod>2023-05-16</lastmod>
@@ -21,6 +30,13 @@
   
   <url>
     <loc>http://lesliechan66.github.io/tags/alist/</loc>
+    <lastmod>2023-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://lesliechan66.github.io/tags/kodi/</loc>
     <lastmod>2023-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
