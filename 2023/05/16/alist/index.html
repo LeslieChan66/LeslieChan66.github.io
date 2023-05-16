@@ -4,31 +4,39 @@
 
 <head>
     
-    <title>Leslie&#39;s Blog</title>
+    <title>使用AList+rclone将你的阿里云盘挂载到本地 - Leslie&#39;s Blog</title>
     <meta charset="UTF-8">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Leslie&#39;s Blog">
-<meta property="og:url" content="http://lesliechan66.github.io/index.html">
+    <meta name="description" content="使用AList+rclone将你的阿里云盘挂载到本地 本地环境：  MacOS (Apple Chip M1) Docker  安装AList使用docker（推荐）输入下面的命令来运行alist 1docker run -d --restart&#x3D;always -v &#x2F;etc&#x2F;alist:&#x2F;opt&#x2F;alist&#x2F;data -p 5244:5244 -e PUID&#x3D;0 -e PGID&#x3D;0 -e UMA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用AList+rclone将你的阿里云盘挂载到本地">
+<meta property="og:url" content="http://lesliechan66.github.io/2023/05/16/alist/index.html">
 <meta property="og:site_name" content="Leslie&#39;s Blog">
+<meta property="og:description" content="使用AList+rclone将你的阿里云盘挂载到本地 本地环境：  MacOS (Apple Chip M1) Docker  安装AList使用docker（推荐）输入下面的命令来运行alist 1docker run -d --restart&#x3D;always -v &#x2F;etc&#x2F;alist:&#x2F;opt&#x2F;alist&#x2F;data -p 5244:5244 -e PUID&#x3D;0 -e PGID&#x3D;0 -e UMA">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png">
+<meta property="og:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516174113976.png">
+<meta property="article:published_time" content="2023-05-16T07:53:18.000Z">
+<meta property="article:modified_time" content="2023-05-16T10:26:56.114Z">
 <meta property="article:author" content="Leslie Chan">
+<meta property="article:tag" content="alist">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png">
     
 <link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1684235380745">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1684235380739">
     
-    <link rel="stylesheet" href="/css/style.css?v=1684235380745">
+    <link rel="stylesheet" href="/css/style.css?v=1684235380739">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1684235380745">
+            <link rel="stylesheet" href="/custom.css?v=1684235380739">
         
     
 
@@ -37,7 +45,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1684235380745"></script>
+    <script async src="/js/app.js?v=1684235380739"></script>
     
      
 
@@ -81,7 +89,7 @@
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple true" href="/" title="回到首页">
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
             <div class="mdui-list-item-content">
                 回到首页
@@ -230,19 +238,16 @@
     </div>
     <div id="nexmoe-content">
         <div class="nexmoe-primary">
-    <section class="nexmoe-posts">
-    
     <div class="nexmoe-post">
-        <a href="/2023/05/16/alist/">
-            
-                <div class="nexmoe-post-cover mdui-ripple absolute" style="padding-top: NaN%;"> 
-                    <img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png" alt="使用AList+rclone将你的阿里云盘挂载到本地" loading="lazy">
-                    <h1>使用AList+rclone将你的阿里云盘挂载到本地</h1>
-                </div>
-            
-        </a>
-
-        <div class="nexmoe-post-meta">
+  <article>
+    
+        <div class="nexmoe-post-cover absolute" style="padding-top: NaN%;"> 
+            <img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png" alt="使用AList+rclone将你的阿里云盘挂载到本地" loading="lazy">
+            <h1>使用AList+rclone将你的阿里云盘挂载到本地</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
     <div class="nexmoe-rainbow">
         <a class="nexmoefont icon-calendar-fill">2023年05月16日</a>
         
@@ -257,13 +262,65 @@
     
 </div>
 
-        <article>
-            
-        </article>
+    <p>使用AList+rclone将你的阿里云盘挂载到本地</p>
+<p>本地环境：</p>
+<ul>
+<li>MacOS (Apple Chip M1)</li>
+<li>Docker</li>
+</ul>
+<h2 id="安装AList"><a href="#安装AList" class="headerlink" title="安装AList"></a>安装AList</h2><h3 id="使用docker（推荐）"><a href="#使用docker（推荐）" class="headerlink" title="使用docker（推荐）"></a>使用docker（推荐）</h3><p>输入下面的命令来运行alist</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -v /etc/alist:/opt/alist/data -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name=<span class="string">&quot;alist&quot;</span> xhofe/alist:latest</span><br></pre></td></tr></table></figure>
+
+<p>成功跑起来之后可以访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:5244/">http://127.0.0.1:5244</a>进入到登陆界面，用户名和密码查看日志也可以输入以下命令来查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it alist ./alist admin</span><br></pre></td></tr></table></figure>
+
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png" alt="image-20230516173354346" data-caption="image-20230516173354346" loading="lazy"></p>
+<p>登陆成功后在管理界面添加存储，驱动选择阿里云盘open。具体配置请参考<a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/drivers/aliyundrive_open.html">阿里云盘open</a></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516174113976.png" alt="image-20230516174113976" data-caption="image-20230516174113976" loading="lazy"></p>
+<h2 id="rclone安装"><a href="#rclone安装" class="headerlink" title="rclone安装"></a>rclone安装</h2>
+    
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Leslie Chan<br>
+        <strong>本文链接：</strong><a href="http://lesliechan66.github.io/2023/05/16/alist/" title="http:&#x2F;&#x2F;lesliechan66.github.io&#x2F;2023&#x2F;05&#x2F;16&#x2F;alist&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;lesliechan66.github.io&#x2F;2023&#x2F;05&#x2F;16&#x2F;alist&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
     </div>
 
-</section>
 
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/alist/" rel="tag">alist</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1684235380736"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="vcomment"></div>
+<script>
+new Valine({
+  el: '#vcomment' ,
+  appId: 'X6fWfxUVCo49mfNAIDCb8sef-9Nh9j0Va',
+  appKey: 'eM4qghZk5NSAgDu5lVFC5kf5'
+});
+</script>
+
+      </div>
+  
+</div>
 </div>
         <div class="nexmoe-post-right">
               <div class="nexmoe-fixed">
@@ -272,6 +329,13 @@
                       
                         
                           
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85AList"><span class="toc-number">1.</span> <span class="toc-text">安装AList</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8docker%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">使用docker（推荐）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rclone%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">rclone安装</span></a></li></ol>
+                                  </div>
+                              </button>
                           
                           
                       
