@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>使用Express部署SPA（vue、react）应用（history模式） - Leslie&#39;s Blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="浅析SPA应用的路由 SPA（Single Page Application）应用的路由，通常是通过前端框架实现的，比如React、Vue、Angular等。SPA应用只有一个HTML页面，所有的内容都是通过局部刷新实现的，这就需要路由系统来实现视图的切换。 SPA应用的路由，工作流程如下：  定义路由：定义每个URL地址对应的组件或页面。 监听URL变化：通过监听浏览器地址栏的变化，当地址栏发生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Express部署SPA（vue、react）应用（history模式）">
+<meta property="og:url" content="http://lesliechan66.github.io/spa.html">
+<meta property="og:site_name" content="Leslie&#39;s Blog">
+<meta property="og:description" content="浅析SPA应用的路由 SPA（Single Page Application）应用的路由，通常是通过前端框架实现的，比如React、Vue、Angular等。SPA应用只有一个HTML页面，所有的内容都是通过局部刷新实现的，这就需要路由系统来实现视图的切换。 SPA应用的路由，工作流程如下：  定义路由：定义每个URL地址对应的组件或页面。 监听URL变化：通过监听浏览器地址栏的变化，当地址栏发生">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-18T05:58:33.000Z">
+<meta property="article:modified_time" content="2023-05-18T15:45:57.846Z">
+<meta property="article:author" content="Leslie Chan">
+<meta property="article:tag" content="Javasctipt Express Vue SPA">
+<meta name="twitter:card" content="summary">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1684424767535">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1684424767535">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1684424767535">
+        
+    
+
+    
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+
+
+    <script async src="/js/app.js?v=1684424767535"></script>
+    
+     
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1RT2YB4M78"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1RT2YB4M78');
+</script>
+<meta name="google-site-verification" content="APE-WxnAXBrcvz1_HvXagKU4XgrbPL3FwlrifBtASaI" />
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" rel="stylesheet">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" 
+            style="background-image: url(https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png)"
+        ></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Leslie Chan" class="mdui-btn mdui-btn-icon"><img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/1711684231126_.pic.jpg" alt="Leslie Chan"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Leslie Chan">
+            <img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/1711684231126_.pic.jpg" alt="Leslie Chan" alt="Leslie Chan">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>3</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archives/index.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+        
+            
+            <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=site:lesliechan66.github.io" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+        
+            
+            <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/LeslieChan66/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Engineer/">Engineer</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/others/">others</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Javasctipt-Express-Vue-SPA/" style="font-size: 10px;">Javasctipt Express Vue SPA</a> <a href="/tags/alist/" style="font-size: 10px;">alist</a> <a href="/tags/kodi/" style="font-size: 10px;">kodi</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(3);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+        
+            
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/spa.html">使用Express部署SPA（vue、react）应用（history模式）</a>
+          </li>
+        
+          <li>
+            <a href="/kodi.html">kodi+alist打造家庭级影院</a>
+          </li>
+        
+          <li>
+            <a href="/alist.html">使用AList+rclone将你的阿里云盘挂载到本地</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+        
+            
+    </aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 Leslie Chan
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+    <div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="https://picgo-1310140047.cos.ap-guangzhou.myqcloud.com/images/image-20230516173354346.png" alt="使用Express部署SPA（vue、react）应用（history模式）" loading="lazy">
+            <h1>使用Express部署SPA（vue、react）应用（history模式）</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2023年05月18日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Engineer/">Engineer</a>
+        
+        
+    <a><i class="nexmoefont icon-areachart"></i>约1.2k字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要4分钟</a>
+
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="浅析SPA应用的路由"><a href="#浅析SPA应用的路由" class="headerlink" title="浅析SPA应用的路由"></a>浅析SPA应用的路由</h2><blockquote>
+<p>SPA（Single Page Application）应用的路由，通常是通过前端框架实现的，比如React、Vue、Angular等。SPA应用只有一个HTML页面，所有的内容都是通过局部刷新实现的，这就需要路由系统来实现视图的切换。</p>
+<p>SPA应用的路由，工作流程如下：</p>
+<ol>
+<li>定义路由：定义每个URL地址对应的组件或页面。</li>
+<li>监听URL变化：通过监听浏览器地址栏的变化，当地址栏发生变化时，获取当前URL地址，根据路由定义，决定显示哪个组件或页面。</li>
+<li>动态加载组件：根据路由规则异步加载需要显示的组件或页面，避免首次加载时一次性加载所有组件，导致页面加载缓慢。</li>
+<li>更新视图：根据路由规则，显示对应的视图。</li>
+</ol>
+<p>SPA应用的路由还可以实现多级嵌套路由、路由守卫、路由参数传递等功能。路由系统是SPA应用的重要组成部分之一，在前端开发中具有重要的作用。</p>
+</blockquote>
+<p>SPA应用的路由模式有以下几种：</p>
+<ol>
+<li><p>Hash路由：使用加#号的URL，例如<a target="_blank" rel="noopener" href="http://example.com/#/home">http://example.com/#/home</a><br>Hash路由不会向服务器发送请求，因此适合在前端实现。</p>
+</li>
+<li><p>History路由：使用HTML5的history API，例如<a target="_blank" rel="noopener" href="http://example.com/home">http://example.com/home</a><br>History路由会向服务器发送请求，因此需要服务器支持单页面应用。</p>
+</li>
+<li><p>Abstract路由：使用内存中的路由表，不会改变URL，通常用于无法使用Hash或History路由的环境，比如在Electron或React Native中开发。</p>
+</li>
+</ol>
+<p>我们常见的路由模式就前面两种，这里我们主要介绍在express中部署spa应用。</p>
+<h2 id="Express部署spa应用"><a href="#Express部署spa应用" class="headerlink" title="Express部署spa应用"></a>Express部署spa应用</h2><p>在部署之前首先要搞清楚会遇到的问题，假设我们要将SPA项目部署在&#x2F;example路径下，那么我们可以通过以下代码来实现</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">// /dist是你spa应用文件夹的相对路径</span>
+app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/example&#x27;</span>, express.<span class="hljs-title function_">static</span>(__dirname + <span class="hljs-string">&#x27;/dist/&#x27;</span>));</code></pre>
+
+<p>然后我们访问<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/example">http://127.0.0.1:3000/example</a>，看起来一切正常对吧。但是问题来了，比如说当我们前端路由有一个路径为&#x2F;foo&#x2F;bar的页面，我们直接访问<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/example/foo/bar">http://127.0.0.1:3000/example/foo/bar</a>，不出意外的话404了。因为history模式下我们的请求首先会走到服务端那边处理，但是express并没有匹配到对应的路由规则所以服务端就直接报错404了，所以我们要让服务端那边在收到&#x2F;example开头的请求时，将请求转发到我们spa应用的入口页面即可。根据这个思路我们可以编写一个中间件来处理：</p>
+<pre><code class="hljs javascript">app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/example&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;
+  <span class="hljs-comment">// 对.css,.js等文件放行</span>
+  <span class="hljs-keyword">if</span> (req.<span class="hljs-property">url</span>.<span class="hljs-title function_">lastIndexOf</span>(<span class="hljs-string">&#x27;.&#x27;</span>) &gt; req.<span class="hljs-property">url</span>.<span class="hljs-title function_">lastIndexOf</span>(<span class="hljs-string">&#x27;/&#x27;</span>)) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">next</span>();
+  &#125;
+  req.<span class="hljs-property">url</span> = <span class="hljs-string">&#x27;/index.html&#x27;</span>;
+  <span class="hljs-title function_">next</span>();
+&#125;);
+app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/example&#x27;</span>, express.<span class="hljs-title function_">static</span>(__dirname + <span class="hljs-string">&#x27;/dist/&#x27;</span>));</code></pre>
+
+<p>我这个中间件并不是很完善，只是为了提供一个思路。有一个现成封装好的中间件可以直接使用，<a target="_blank" rel="noopener" href="https://github.com/bripkens/connect-history-api-fallback">connect-history-api-fallback 中间件</a>，我们可以看下它的介绍：</p>
+<blockquote>
+<p>Single Page Applications (SPA) typically only utilise one index file that is accessible by web browsers: usually <code>index.html</code>. Navigation in the application is then commonly handled using JavaScript with the help of the <a target="_blank" rel="noopener" href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-history-interface">HTML5 History API</a>. This results in issues when the user hits the refresh button or is directly accessing a page other than the landing page, e.g. <code>/help</code> or <code>/help/online</code> as the web server bypasses the index file to locate the file at this location. As your application is a SPA, the web server will fail trying to retrieve the file and return a <em>404 - Not Found</em> message to the user.</p>
+<p>This tiny middleware addresses some of the issues. Specifically, it will change the requested location to the index you specify (default being <code>/index.html</code>) whenever there is a request which fulfills the following criteria:</p>
+<ol>
+<li>The request is a <code>GET</code> or <code>HEAD</code> request</li>
+<li>which accepts <code>text/html</code>,</li>
+<li>is not a direct file request, i.e. the requested path does not contain a <code>.</code> (DOT) character and</li>
+<li>does not match a pattern provided in options.rewrites (see options below)</li>
+</ol>
+</blockquote>
+<p>具体实现思路和我上述的差不多，做了更新细节的处理和封装，感兴趣的可自行查看源码。</p>
+<h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre><code class="hljs sh">npm install --save connect-history-api-fallback</code></pre>
+
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><pre><code class="hljs javascript">app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/example&#x27;</span>, <span class="hljs-title function_">history</span>());
+app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/example&#x27;</span>, express.<span class="hljs-title function_">static</span>(__dirname + <span class="hljs-string">&#x27;/dist/&#x27;</span>));</code></pre>
+
+<blockquote>
+<p>Tips: 这里需要注意的是该中间件必须在static中间件前使用，否则会出现问题</p>
+<p>如果在之后使用的话，请求会先走到static中间件中进行处理，static找不到对应的路径就会直接抛出404了，并不会走到该中间件处理。</p>
+</blockquote>
+<p>更多用法请参考<a target="_blank" rel="noopener" href="https://github.com/bripkens/connect-history-api-fallback">connect-history-api-fallback文档</a></p>
+
+    
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Leslie Chan<br>
+        <strong>本文链接：</strong><a href="http://lesliechan66.github.io/spa.html" title="http:&#x2F;&#x2F;lesliechan66.github.io&#x2F;spa.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;lesliechan66.github.io&#x2F;spa.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Javasctipt-Express-Vue-SPA/" rel="tag">Javasctipt Express Vue SPA</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1684424767530"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="vcomment"></div>
+<script>
+new Valine({
+  el: '#vcomment' ,
+  appId: 'X6fWfxUVCo49mfNAIDCb8sef-9Nh9j0Va',
+  appKey: 'eM4qghZk5NSAgDu5lVFC5kf5'
+});
+</script>
+
+      </div>
+  
+</div>
+</div>
+        <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%85%E6%9E%90SPA%E5%BA%94%E7%94%A8%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">浅析SPA应用的路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Express%E9%83%A8%E7%BD%B2spa%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">Express部署spa应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">具体使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.2.</span> <span class="toc-text">使用</span></a></li></ol></li></ol></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="搜索"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

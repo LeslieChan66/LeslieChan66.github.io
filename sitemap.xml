@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lesliechan66.github.io/spa.html</loc>
+    
+    <lastmod>2023-05-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://lesliechan66.github.io/alist.html</loc>
     
     <lastmod>2023-05-16</lastmod>
@@ -22,7 +31,7 @@
 
   <url>
     <loc>http://lesliechan66.github.io/</loc>
-    <lastmod>2023-05-17</lastmod>
+    <lastmod>2023-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -30,14 +39,21 @@
   
   <url>
     <loc>http://lesliechan66.github.io/tags/alist/</loc>
-    <lastmod>2023-05-17</lastmod>
+    <lastmod>2023-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://lesliechan66.github.io/tags/kodi/</loc>
-    <lastmod>2023-05-17</lastmod>
+    <lastmod>2023-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://lesliechan66.github.io/tags/Javasctipt-Express-Vue-SPA/</loc>
+    <lastmod>2023-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -46,7 +62,14 @@
   
   <url>
     <loc>http://lesliechan66.github.io/categories/others/</loc>
-    <lastmod>2023-05-17</lastmod>
+    <lastmod>2023-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://lesliechan66.github.io/categories/Engineer/</loc>
+    <lastmod>2023-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
