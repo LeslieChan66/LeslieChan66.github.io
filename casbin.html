@@ -10,15 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="Casbin 是一个强大和高效的开放源码访问控制库，它支持各种 访问控制模型 以强制全面执行授权。 Casbin支持GO、Java、Nodejs等主流编程语言  PERM模型在 Casbin 中, 访问控制模型被抽象为基于 PERM (Policy, Effect, Request, Matcher) 的一个配置文件，我们可以通过修改模型文件来定制不同的访问控制模型。">
+    <meta name="description" content="Casbin 是一个强大和高效的开放源码访问控制库，它支持各种 访问控制模型 以强制全面执行授权。 Casbin支持GO、Java、Nodejs等主流编程语言  PERM模型在 Casbin 中, 访问控制模型被抽象为基于 PERM (Policy, Effect, Request, Matcher) 的一个配置文件，我们可以通过修改模型文件来定制不同的访问控制模型。像ACL, RBAC等模型都">
 <meta property="og:type" content="article">
 <meta property="og:title" content="casbin">
 <meta property="og:url" content="http://lesliechan66.github.io/casbin.html">
 <meta property="og:site_name" content="Leslie&#39;s Blog">
-<meta property="og:description" content="Casbin 是一个强大和高效的开放源码访问控制库，它支持各种 访问控制模型 以强制全面执行授权。 Casbin支持GO、Java、Nodejs等主流编程语言  PERM模型在 Casbin 中, 访问控制模型被抽象为基于 PERM (Policy, Effect, Request, Matcher) 的一个配置文件，我们可以通过修改模型文件来定制不同的访问控制模型。">
+<meta property="og:description" content="Casbin 是一个强大和高效的开放源码访问控制库，它支持各种 访问控制模型 以强制全面执行授权。 Casbin支持GO、Java、Nodejs等主流编程语言  PERM模型在 Casbin 中, 访问控制模型被抽象为基于 PERM (Policy, Effect, Request, Matcher) 的一个配置文件，我们可以通过修改模型文件来定制不同的访问控制模型。像ACL, RBAC等模型都">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-25T12:09:05.000Z">
-<meta property="article:modified_time" content="2023-05-25T12:11:54.970Z">
+<meta property="article:modified_time" content="2023-05-25T13:29:31.445Z">
 <meta property="article:author" content="Leslie Chan">
 <meta name="twitter:card" content="summary">
     
@@ -26,13 +26,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1685016823326">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1685021450862">
     
-    <link rel="stylesheet" href="/css/style.css?v=1685016823326">
+    <link rel="stylesheet" href="/css/style.css?v=1685021450862">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1685016823326">
+            <link rel="stylesheet" href="/custom.css?v=1685021450862">
         
     
 
@@ -41,7 +41,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1685016823326"></script>
+    <script async src="/js/app.js?v=1685021450863"></script>
     
      
 
@@ -267,7 +267,7 @@
         <a class="nexmoefont icon-calendar-fill">2023年05月25日</a>
         
         
-    <a><i class="nexmoefont icon-areachart"></i>约105字</a>
+    <a><i class="nexmoefont icon-areachart"></i>约332字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要1分钟</a>
 
     </div>
@@ -282,8 +282,13 @@
 <p>Casbin 是一个强大和高效的开放源码访问控制库，它支持各种 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Access_control#Access_control_models">访问控制模型</a> 以强制全面执行授权。</p>
 <p>Casbin支持GO、Java、Nodejs等主流编程语言</p>
 </blockquote>
-<h2 id="PERM模型"><a href="#PERM模型" class="headerlink" title="PERM模型"></a>PERM模型</h2><p>在 Casbin 中, 访问控制模型被抽象为基于 <strong>PERM (Policy, Effect, Request, Matcher)</strong> 的一个配置文件，我们可以通过修改模型文件来定制不同的访问控制模型。</p>
+<h2 id="PERM模型"><a href="#PERM模型" class="headerlink" title="PERM模型"></a>PERM模型</h2><p>在 Casbin 中, 访问控制模型被抽象为基于 <strong>PERM (Policy, Effect, Request, Matcher)</strong> 的一个配置文件，我们可以通过修改模型文件来定制不同的访问控制模型。像ACL, RBAC等模型都是支持的，具体支持的模型可参阅<a target="_blank" rel="noopener" href="https://casbin.org/zh/docs/supported-models">Casbin支持的模型</a>，我们先介绍下<strong>PERM</strong>模型</p>
+<h3 id="Request（请求定义）"><a href="#Request（请求定义）" class="headerlink" title="Request（请求定义）"></a>Request（请求定义）</h3><p>故名思义这个是用来描述我们的请求的参数，一般来说我们的请求应该会有三个关键元素，分别是访问实体(sub)、访问资源(obj)以及访问方式(act)。举个例子，张三想要查询公司员工的所有信息，那么张三就是访问实体，公司员工的信息就是访问资源，访问方式就是查询。我们可以来看看具体的语法规则：</p>
+<pre><code class="hljs ini"><span class="hljs-section">[request_definition]</span>
+<span class="hljs-attr">r</span> = sub, obj, act</code></pre>
 
+<p><code>[request_definition]</code>表示这里声明的是请求参数。当然请求定义并不是必须要求是三个参数，比如说基于域的RBAC模型请求定义里就多了域这个参数。</p>
+<h3 id="Policy（策略定义）"><a href="#Policy（策略定义）" class="headerlink" title="Policy（策略定义）"></a>Policy（策略定义）</h3>
     
   </article>
 
@@ -307,7 +312,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1685016823315"></script>
+    <script async src="/js/copy-codeblock.js?v=1685021450859"></script>
   
 
   
@@ -337,7 +342,7 @@ new Valine({
                               <button class="mdui-fab catalog" style="overflow:unset;">
                                   <i class="nexmoefont icon-i-catalog"></i>
                                   <div class="nexmoe-toc">
-                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PERM%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">PERM模型</span></a></li></ol>
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PERM%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">PERM模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Request%EF%BC%88%E8%AF%B7%E6%B1%82%E5%AE%9A%E4%B9%89%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">Request（请求定义）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy%EF%BC%88%E7%AD%96%E7%95%A5%E5%AE%9A%E4%B9%89%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">Policy（策略定义）</span></a></li></ol></li></ol>
                                   </div>
                               </button>
                           
